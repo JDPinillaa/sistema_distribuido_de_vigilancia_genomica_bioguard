@@ -1,16 +1,18 @@
 package org.JuanDiego.models;
 
+import enums.Genero;
+
 public class Patient {
     private String id;
     private String name;
     private String surmname;
     private int age;
     private String email;
-    private String genero;
+    private Genero genero;
     private String ciudad;
     private String pais;
 
-    public Patient(String id, String name, String surmname, int age, String email, String genero, String ciudad, String pais) {
+    public Patient(String id, String name, String surmname, int age, String email, Genero genero, String ciudad, String pais) {
         this.id = id;
         this.name = name;
         this.surmname = surmname;
@@ -41,7 +43,7 @@ public class Patient {
         return email;
     }
 
-    public String getGenero() {
+    public Genero getGenero() {
         return genero;
     }
 
