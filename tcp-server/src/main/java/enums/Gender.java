@@ -21,7 +21,9 @@ public enum Gender {
      */
     private char abbreviation;
 
-    ////// Metodo de acceso de la sigla del genero
+    /**
+     * Metodo de acceso de la sigla del genero
+     */
     public char getAbbreviation() {
         return abbreviation;
     }
