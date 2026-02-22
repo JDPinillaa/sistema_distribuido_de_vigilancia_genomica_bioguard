@@ -7,7 +7,7 @@ import org.JuanDiego.enums.Gender;
  *Modelo que representa a un paciente
  *@author Juan Diego
  *@since 20260219
- *@version 1.1
+ *@version 1.2
  */
 public class Patient {
     //////Atributos
@@ -25,7 +25,7 @@ public class Patient {
     /**
      * Representa el apellido del paciente
      */
-    private String surmname;
+    private String surname;
 
     /**
      * Representa la edad del paciente
@@ -45,23 +45,23 @@ public class Patient {
     /**
      * Representa la ciudad de residencia del paciente
      */
-    private String ciudad;
+    private String city;
 
     /**
      * Representa el país de residencia del paciente
      */
-    private String pais;
+    private String country;
 
     ////// Metodo constructor
-    public Patient(String id, String name, String surmname, int age, String email, Gender gender, String ciudad, String pais) {
+    public Patient(String id, String name, String surname, int age, String email, Gender gender, String city, String country) {
         this.id = id;
         this.name = name;
-        this.surmname = surmname;
+        this.surname = surname;
         this.age = age;
         this.email = email;
         this.gender = gender;
-        this.ciudad = ciudad;
-        this.pais = pais;
+        this.city = city;
+        this.country = country;
     }
 
     ////// Metodos de acceso
@@ -74,8 +74,8 @@ public class Patient {
         return name;
     }
 
-    public String getSurmname() {
-        return surmname;
+    public String getSurname() {
+        return surname;
     }
 
     public int getAge() {
@@ -86,15 +86,35 @@ public class Patient {
         return email;
     }
 
-    public Gender getGenero() {
+    public Gender getGender() {
         return gender;
     }
 
-    public String getCiudad() {
-        return ciudad;
+    public String getCity() {
+        return city;
     }
 
-    public String getPais() {
-        return pais;
+    public String getCountry() {
+        return country;
     }
+
+    /**
+     * Metodo que convierte los datos del paciente en un renglon listo para pasar a un .CSV
+     */
+    public String toCSV(){
+        return String.join(",", id, name, surname,String.valueOf(age), email, String.valueOf(gender.getAbbreviation()), city, country  );
+    }
+
+
+    /**
+     * Metodo qye convierte los datos recibidos de un .CSV en una instancia de un paciente
+     */
+    public static Patient fromCSV(String lineaCSV){
+        String[] datos = lineaCSV.split(",");
+        if (datos.length != 8){
+            throw new IllegalArgumentException("La linea leida del CSV no esta en el formato correcto.");
+        }
+        return new Patient(datos[0], datos[1], datos[2], Integer.parseInt(datos[3]), datos[4], Gender.fromAbbreviation(datos[5]), datos[6], datos[7]);
+    }
+
 }

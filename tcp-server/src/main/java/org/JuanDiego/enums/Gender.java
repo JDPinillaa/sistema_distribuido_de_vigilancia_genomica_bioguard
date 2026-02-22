@@ -27,4 +27,13 @@ public enum Gender {
     public char getAbbreviation() {
         return abbreviation;
     }
+
+    public static Gender fromAbbreviation(String value) {
+        char c = value.trim().toUpperCase().charAt(0);
+        switch (c) {
+            case 'M': return Male;
+            case 'F': return Female;
+            default: throw new IllegalArgumentException("Genero invalido: " + value);
+        }
+    }
 }
