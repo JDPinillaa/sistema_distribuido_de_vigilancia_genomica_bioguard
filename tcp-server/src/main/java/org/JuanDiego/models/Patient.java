@@ -41,7 +41,15 @@ public class Patient {
      * Representa el genero del paciente con el Enum Gender
      */
     private Gender gender;
+
+    /**
+     * Representa la ciudad de residencia del paciente
+     */
     private String ciudad;
+
+    /**
+     * Representa el país de residencia del paciente
+     */
     private String pais;
 
     ////// Metodo constructor

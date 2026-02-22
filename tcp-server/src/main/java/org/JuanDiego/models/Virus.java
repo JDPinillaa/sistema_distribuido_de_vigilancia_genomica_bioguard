@@ -3,7 +3,7 @@ package org.JuanDiego.models;
 import enums.InfectionLevel;
 
 /**
- * Clase que representa un virus
+ * Modelo que representa un virus
  * @author Juan Diego
  * @since 20260221
  * @version 1.0
