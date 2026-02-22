@@ -48,7 +48,9 @@ public class DNASample {
         return sequence;
     }
 
-
+    /**
+     * Metodo que crea instancias de DNASample desde archivos en formato fasta
+     */
     public static DNASample fromFasta(String firstLine, String scndLine){
         if(!firstLine.startsWith(">") && !firstLine.contains("|")){
             throw new IllegalArgumentException("La primera linea del formato fasta no esta en el formato adecuado: >documento | fecha");
