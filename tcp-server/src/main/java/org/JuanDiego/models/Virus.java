@@ -1,6 +1,6 @@
 package org.JuanDiego.models;
 
-import enums.InfectionLevel;
+import org.JuanDiego.enums.InfectionLevel;
 
 /**
  * Modelo que representa un virus

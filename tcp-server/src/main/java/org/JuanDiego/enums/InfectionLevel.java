@@ -1,4 +1,4 @@
-package enums;
+package org.JuanDiego.enums;
 
 /**
  * Enum que representa el nivel de infeccion de un virus

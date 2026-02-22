@@ -1,6 +1,6 @@
 package org.JuanDiego.models;
 
-import enums.Gender;
+import org.JuanDiego.enums.Gender;
 
 
 /**

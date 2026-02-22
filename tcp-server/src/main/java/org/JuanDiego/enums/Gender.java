@@ -1,4 +1,4 @@
-package enums;
+package org.JuanDiego.enums;
 
 /**
  * Enum que representa el genero del paciente
