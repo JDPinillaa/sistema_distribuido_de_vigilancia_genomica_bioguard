@@ -6,8 +6,8 @@ package org.JuanDiego.exceptions;
  * @since 20260222
  * @version 1.0
  */
-public class InvalidFastaFormat extends Exception{
-    public InvalidFastaFormat(String message) {
+public class InvalidFastaFormatException extends Exception{
+    public InvalidFastaFormatException(String message) {
         super(message);
     }
 }

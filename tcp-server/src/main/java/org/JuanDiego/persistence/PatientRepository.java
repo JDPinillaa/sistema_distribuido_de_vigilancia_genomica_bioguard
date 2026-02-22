@@ -19,9 +19,14 @@ public class PatientRepository {
     private static final Path dataDirectory = Paths.get("data");
     private static final Path patientsFile = dataDirectory.resolve("pacientes.csv");
 
-
-
-
+    /**
+     * Metodo constructor
+     *
+     * poniendo @ensureDataDirectory se asegura que cuando se instancie este repositorio el directorio de data si exista
+     */
+    public PatientRepository() {
+        ensureDataDirectory();
+    }
 
     /**
      * Obtiene la ruta del archivo de pacientes, asegurando la existencia del directorio base
