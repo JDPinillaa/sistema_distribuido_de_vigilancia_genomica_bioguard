@@ -1,10 +1,10 @@
 package enums;
 
-public enum Genero {
+public enum Gender {
     Masculino('M'),
     Femenino('F');
 
-    Genero(char sigla) {
+    Gender(char sigla) {
         this.sigla = sigla;
     }
 
