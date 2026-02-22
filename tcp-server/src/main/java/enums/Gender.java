@@ -1,16 +1,28 @@
 package enums;
 
+/**
+ * Enum que representa el genero del paciente
+ * @author Juan Diego
+ * @since 20260221
+ * @version 1.0
+ */
 public enum Gender {
-    Masculino('M'),
-    Femenino('F');
 
-    Gender(char sigla) {
-        this.sigla = sigla;
+    //////Parametros de genero disponibles
+    Male('M'),
+    Female('F');
+
+    Gender(char abbreviation) {
+        this.abbreviation = abbreviation;
     }
 
-    private char sigla;
+    /**
+     * Atributo del Enum que guarda la sigla que representa el genero
+     */
+    private char abbreviation;
 
-    public char getSigla() {
-        return sigla;
+    ////// Metodo de acceso de la sigla del genero
+    public char getAbbreviation() {
+        return abbreviation;
     }
 }
