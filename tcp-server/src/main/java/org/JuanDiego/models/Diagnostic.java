@@ -3,6 +3,9 @@ package org.JuanDiego.models;
 
 /**
  * Modelo que representa el diagnostico de la muestra de ADN (@DNASample) de un paciente
+ * @author Juan Diego
+ * @since 20260221
+ * @version 1.1
  */
 public class Diagnostic {
 
@@ -47,7 +50,6 @@ public class Diagnostic {
     }
 
     /**
-     *
      * Metodo que retorna los datos del diagnostico en un renglon listo para pasarse a un CSV
      */
     public String toCSV(){

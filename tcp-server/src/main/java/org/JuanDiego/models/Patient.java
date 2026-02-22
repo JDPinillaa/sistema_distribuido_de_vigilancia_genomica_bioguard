@@ -110,11 +110,11 @@ public class Patient {
      * Metodo qye convierte los datos recibidos de un .CSV en una instancia de un paciente
      */
     public static Patient fromCSV(String lineaCSV){
-        String[] datos = lineaCSV.split(",");
-        if (datos.length != 8){
+        String[] data = lineaCSV.split(",");
+        if (data.length != 8){
             throw new IllegalArgumentException("La linea leida del CSV no esta en el formato correcto.");
         }
-        return new Patient(datos[0], datos[1], datos[2], Integer.parseInt(datos[3]), datos[4], Gender.fromAbbreviation(datos[5]), datos[6], datos[7]);
+        return new Patient(data[0], data[1], data[2], Integer.parseInt(data[3]), data[4], Gender.fromAbbreviation(data[5]), data[6], data[7]);
     }
 
 }
