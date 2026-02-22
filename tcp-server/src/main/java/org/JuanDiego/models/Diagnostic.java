@@ -2,7 +2,7 @@ package org.JuanDiego.models;
 
 
 /**
- * Modelo que representa el diagnostico de un paciente
+ * Modelo que representa el diagnostico de la muestra de ADN (@DNASample) de un paciente
  */
 public class Diagnostic {
 
@@ -44,5 +44,13 @@ public class Diagnostic {
 
     public int getLastPosition() {
         return lastPosition;
+    }
+
+    /**
+     *
+     * Metodo que retorna los datos del diagnostico en un renglon listo para pasarse a un CSV
+     */
+    public String toCSV(){
+        return String.join(",", detectedVirus.getName(), String.valueOf(firstPosition), String.valueOf(lastPosition));
     }
 }
