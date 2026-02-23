@@ -1,6 +1,8 @@
 package org.JuanDiego.persistence;
 
+import org.JuanDiego.exceptions.InvalidFastaFormatException;
 import org.JuanDiego.models.DNASample;
+import org.JuanDiego.parsers.SampleFastaParser;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -48,20 +50,17 @@ public class SampleRepository {
             Files.createDirectories(patientFolder.toPath());
         }
 
-        String fileName = "sample_"+ sample.getDate().replace("/", "-")+".fasta";
+        String fileName = "sample_"+ sample.getDate().replace("/", "-") +".fasta";
         File toPatientFolder = new File(patientFolder, fileName);
 
+        String[] fastaLines = SampleFastaParser.toFastaLines(sample);
         try(FileWriter fw = new FileWriter(toPatientFolder)){
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter out = new PrintWriter(bw);
 
-            out.println(">"+patientId+"|"+sample.getDate());
-            out.println(sample.getSequence());
+            out.println(fastaLines[0]);
+            out.println(fastaLines[1]);
         }
-
-
-
-
     }
 
 
@@ -85,13 +84,14 @@ public class SampleRepository {
                     String scndLine = br.readLine();
 
                     if(firstLine != null && scndLine != null){
-                        history.add(DNASample.fromFasta(firstLine, scndLine));
+                        history.add(SampleFastaParser.parse(firstLine, scndLine));
                     }
-                    }
+                } catch (InvalidFastaFormatException e) {
+                    System.out.println("Formato fasta invalido");
                 }
             }
-        return history;
         }
-
+        return history;
     }
+
 }

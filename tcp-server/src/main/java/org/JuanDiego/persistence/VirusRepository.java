@@ -2,6 +2,7 @@ package org.JuanDiego.persistence;
 
 import org.JuanDiego.exceptions.InvalidFastaFormatException;
 import org.JuanDiego.models.Virus;
+import org.JuanDiego.parsers.VirusFastaParser;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -60,17 +61,9 @@ public class VirusRepository {
             String firstLine = br.readLine();
             String scndLine = br.readLine();
 
-            if(firstLine == null || scndLine == null){
-                throw new InvalidFastaFormatException("El archivo fasta esta incompleto");
-            }
-
-            try{
-                Virus v = Virus.fromFasta(firstLine, scndLine);
-                File toDirectory = new File(virusDirectory + "/" + v.getName() + ".fasta");
-                Files.copy(file.toPath(), toDirectory.toPath(), StandardCopyOption.REPLACE_EXISTING);
-            }catch(IllegalArgumentException e){
-                throw new InvalidFastaFormatException("Error: "+e.getMessage());
-            }
+            Virus v = VirusFastaParser.parse(firstLine, scndLine);
+            File toDirectory = new File(virusDirectory + "/" + v.getName() + ".fasta");
+            Files.copy(file.toPath(), toDirectory.toPath(), StandardCopyOption.REPLACE_EXISTING);
         }
     }
 
@@ -90,9 +83,9 @@ public class VirusRepository {
                     String firstLine = br.readLine();
                     String scndLine = br.readLine();
                     if(firstLine != null && scndLine != null){
-                        catalog.add(Virus.fromFasta(firstLine, scndLine));
+                        catalog.add(VirusFastaParser.parse(firstLine, scndLine));
                     }
-                } catch (IOException e) {
+                } catch (IOException | InvalidFastaFormatException e) {
                     System.out.println("No se pudo cargar el virus");;
                 }
             }

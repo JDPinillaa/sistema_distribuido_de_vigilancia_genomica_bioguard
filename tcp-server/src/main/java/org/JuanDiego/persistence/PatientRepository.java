@@ -2,6 +2,7 @@ package org.JuanDiego.persistence;
 
 import org.JuanDiego.exceptions.DuplicatedPatientException;
 import org.JuanDiego.models.Patient;
+import org.JuanDiego.parsers.PatientCsvParser;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -68,9 +69,9 @@ public class PatientRepository {
             String line;
 
             while((line = br.readLine()) != null){
-                String[] data = line.split(",");
-                if(data.length>0 && data[0].equals(id)){
-                    return Patient.fromCSV(line);
+                Patient patient = PatientCsvParser.parseLine(line);
+                if(patient.getId().equals(id)){
+                    return patient;
                 }
 
             }
@@ -99,7 +100,7 @@ public class PatientRepository {
         ensureDataDirectory();
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(patientsFile.toFile(), true));
              PrintWriter out = new PrintWriter(bw)) {
-            out.println(patient.toCSV());
+            out.println(PatientCsvParser.toCsv(patient));
         }
     }
 }

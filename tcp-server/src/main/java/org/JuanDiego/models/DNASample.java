@@ -1,7 +1,5 @@
 package org.JuanDiego.models;
 
-import java.util.Date;
-
 /**
  * Modelo que representa una muestra de ADN
  * @author Juan Diego
@@ -48,21 +46,5 @@ public class DNASample {
         return sequence;
     }
 
-    /**
-     * Metodo que crea instancias de DNASample desde archivos en formato fasta
-     */
-    public static DNASample fromFasta(String firstLine, String scndLine){
-        if(!firstLine.startsWith(">") && !firstLine.contains("|")){
-            throw new IllegalArgumentException("La primera linea del formato fasta no esta en el formato adecuado: >documento | fecha");
-        }
 
-        String[] data = firstLine.substring(1).split("//|");
-
-        String patientId = data[0].trim();
-        String date = data[1].trim();
-        String sequence = scndLine.trim().toUpperCase();
-
-        return new DNASample(patientId, date, sequence);
-
-    }
 }

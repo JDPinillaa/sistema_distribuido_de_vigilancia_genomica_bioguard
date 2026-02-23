@@ -98,23 +98,5 @@ public class Patient {
         return country;
     }
 
-    /**
-     * Metodo que convierte los datos del paciente en un renglon listo para pasar a un .CSV
-     */
-    public String toCSV(){
-        return String.join(",", id, name, surname,String.valueOf(age), email, String.valueOf(gender.getAbbreviation()), city, country  );
-    }
-
-
-    /**
-     * Metodo qye convierte los datos recibidos de un .CSV en una instancia de un paciente
-     */
-    public static Patient fromCSV(String lineaCSV){
-        String[] data = lineaCSV.split(",");
-        if (data.length != 8){
-            throw new IllegalArgumentException("La linea leida del CSV no esta en el formato correcto.");
-        }
-        return new Patient(data[0], data[1], data[2], Integer.parseInt(data[3]), data[4], Gender.fromAbbreviation(data[5]), data[6], data[7]);
-    }
 
 }
