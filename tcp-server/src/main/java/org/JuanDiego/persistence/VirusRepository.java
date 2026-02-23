@@ -19,7 +19,11 @@ import java.util.List;
  * @version 1.0
  */
 public class VirusRepository {
-    private static final Path virusDirectory = Paths.get("data/virus");
+
+    /**
+     * Ruta del directorio de virus
+     */
+    private static final Path virusDirectory = Paths.get("data/viruses");
 
 
     /**

@@ -16,8 +16,16 @@ import java.nio.file.Paths;
  * @version 1.0
  */
 public class PatientRepository {
+
+    /**
+     * Ruta del directorio de los datos guardados en el servidor
+     */
     private static final Path dataDirectory = Paths.get("data");
-    private static final Path patientsFile = dataDirectory.resolve("pacientes.csv");
+
+    /**
+     * Nombre del archivo .csv donde se van a guardar los pacientes
+     */
+    private static final Path patientsFile = dataDirectory.resolve("patients.csv");
 
     /**
      * Metodo constructor
