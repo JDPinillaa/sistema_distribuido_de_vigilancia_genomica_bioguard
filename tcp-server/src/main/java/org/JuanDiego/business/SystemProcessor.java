@@ -5,7 +5,6 @@ import org.JuanDiego.models.Diagnostic;
 import org.JuanDiego.models.Patient;
 import org.JuanDiego.models.Virus;
 import org.JuanDiego.parsers.PatientCsvParser;
-import org.JuanDiego.parsers.SampleFastaParser;
 import org.JuanDiego.parsers.VirusFastaParser;
 import org.JuanDiego.persistence.PatientRepository;
 import org.JuanDiego.persistence.SampleRepository;
@@ -29,19 +28,13 @@ public class SystemProcessor implements IMessageProcessor {
     private final VirusRepository virusRepository;
     private final DNAAnalizer dnaAnalizer;
     private final ReportGenerator reportGenerator;
-    private final PatientCsvParser patientCsvParser;
-    private final SampleFastaParser sampleFastaParser;
-    private final VirusFastaParser virusFastaParser;
 
-    public SystemProcessor(PatientRepository patientRepository, SampleRepository sampleRepository, VirusRepository virusRepository, DNAAnalizer dnaAnalizer, ReportGenerator reportGenerator, PatientCsvParser patientCsvParser, SampleFastaParser sampleFastaParser, VirusFastaParser virusFastaParser) {
+    public SystemProcessor(PatientRepository patientRepository, SampleRepository sampleRepository, VirusRepository virusRepository, DNAAnalizer dnaAnalizer, ReportGenerator reportGenerator) {
         this.patientRepository = patientRepository;
         this.sampleRepository = sampleRepository;
         this.virusRepository = virusRepository;
         this.dnaAnalizer = dnaAnalizer;
         this.reportGenerator = reportGenerator;
-        this.patientCsvParser = patientCsvParser;
-        this.sampleFastaParser = sampleFastaParser;
-        this.virusFastaParser = virusFastaParser;
     }
 
 
@@ -103,7 +96,7 @@ public class SystemProcessor implements IMessageProcessor {
 
 
     private String processPatientRegistration(String csvLine) throws Exception{
-        Patient patient = patientCsvParser.parseLine(csvLine);
+        Patient patient = PatientCsvParser.parseLine(csvLine);
         patientRepository.savePatient(patient);
         return "Paciente registrado con exito";
     }

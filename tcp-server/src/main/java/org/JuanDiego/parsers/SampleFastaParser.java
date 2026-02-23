@@ -11,8 +11,7 @@ import org.JuanDiego.models.DNASample;
  * @version 1.0
  */
 public class SampleFastaParser {
-    private SampleFastaParser() {
-    }
+
 
     /**
      * Parsea dos lineas de un archivo fasta y construye una DNASample

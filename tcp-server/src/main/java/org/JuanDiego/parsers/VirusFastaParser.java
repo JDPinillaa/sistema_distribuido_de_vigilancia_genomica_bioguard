@@ -12,7 +12,7 @@ import org.JuanDiego.models.Virus;
  * @version 1.1
  */
 public class VirusFastaParser {
-    private VirusFastaParser() {
+    public VirusFastaParser() {
     }
 
     /**
