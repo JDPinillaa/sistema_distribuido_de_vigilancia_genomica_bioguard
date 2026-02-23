@@ -63,6 +63,25 @@ public class SampleRepository {
         }
     }
 
+    /**
+     * Lee un archivo fasta desde una ruta local, lo parsea y lo guarda en el repositorio
+     */
+    public synchronized DNASample saveSampleFromPath(String filepath) throws IOException, InvalidFastaFormatException{
+        File file = new File(filepath);
+        if(!file.exists()){
+            throw new FileNotFoundException("No se encontro el archivo en la ruta indicada");
+        }
+
+        try(BufferedReader br = new BufferedReader(new FileReader(file))){
+            String firstLine = br.readLine();
+            String scndLine = br.readLine();
+
+            DNASample sample = SampleFastaParser.parse(firstLine, scndLine);
+            saveSample(sample);
+            return sample;
+        }
+    }
+
 
     /**
      * Obtiene el historial de muestras de un paciente

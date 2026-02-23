@@ -9,7 +9,7 @@ import org.JuanDiego.models.Virus;
  * Parser que parsea la informacion de los virus, ya sea para a partir de las lineas de un archivo fasta crear uno, o para generar las dos lineas del formato fasta a partir del virus
  * @author Juan Diego
  * @since 20260222
- * @version 1.0
+ * @version 1.1
  */
 public class VirusFastaParser {
     private VirusFastaParser() {
@@ -41,6 +41,21 @@ public class VirusFastaParser {
         String sequence = secondLine.trim().toUpperCase();
 
         return new Virus(name, infectionLevel, sequence);
+    }
+
+    /**
+     * Parsea el contenido completo de un archivo fasta y construye un Virus
+     */
+    public static Virus parse(String fastaContent) throws InvalidFastaFormatException {
+        if (fastaContent == null) {
+            throw new InvalidFastaFormatException("El contenido fasta es nulo");
+        }
+        String normalized = fastaContent.replace("\\n", "\n");
+        String[] lines = normalized.split("\\R", 3);
+        if (lines.length < 2) {
+            throw new InvalidFastaFormatException("El contenido fasta debe tener al menos 2 lineas");
+        }
+        return parse(lines[0], lines[1]);
     }
 
     /**

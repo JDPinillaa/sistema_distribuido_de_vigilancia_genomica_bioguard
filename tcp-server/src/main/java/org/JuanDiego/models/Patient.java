@@ -98,5 +98,10 @@ public class Patient {
         return country;
     }
 
-
+    /**
+     * Representa la informacion del paciente en formato de archivo .csv
+     */
+    public String toCSV(){
+        return String.join(",", id, name, surname,String.valueOf(age), email, String.valueOf(gender.getAbbreviation()), city, country  );
+    }
 }

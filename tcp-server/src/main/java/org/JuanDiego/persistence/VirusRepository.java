@@ -51,7 +51,7 @@ public class VirusRepository {
     /**
      * Metodo que lee un archivo fasta desde una ruta local
      */
-    public synchronized void virusRegister(String filepath) throws IOException, InvalidFastaFormatException{
+    public synchronized void saveVirus(String filepath) throws IOException, InvalidFastaFormatException{
         File file = new File(filepath);
         if(!file.exists()){
             throw new FileNotFoundException("No se encontro el archivo en la ruta indicada");
@@ -67,11 +67,48 @@ public class VirusRepository {
         }
     }
 
+    /**
+     * Metodo que lee un archivo fasta desde una ruta local, lo copia al repositorio y retorna el virus parseado
+     */
+    public synchronized Virus saveVirusFromPath(String filepath) throws IOException, InvalidFastaFormatException{
+        File file = new File(filepath);
+        if(!file.exists()){
+            throw new FileNotFoundException("No se encontro el archivo en la ruta indicada");
+        }
+
+        try(BufferedReader br = new BufferedReader(new FileReader(file))){
+            String firstLine = br.readLine();
+            String scndLine = br.readLine();
+
+            Virus v = VirusFastaParser.parse(firstLine, scndLine);
+            File toDirectory = new File(virusDirectory + "/" + v.getName() + ".fasta");
+            Files.copy(file.toPath(), toDirectory.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            return v;
+        }
+    }
 
     /**
-     * Metodo que lee todos los archivos .fasta que hay en el servidor y los convierte en instancias de virus
+     * Metodo que guarda un Virus en el directorio de virus como archivo fasta
      */
-    public synchronized List<Virus> loadCatalog(){
+    public synchronized void saveVirus(Virus virus) throws IOException {
+        File toDirectory = new File(virusDirectory + "/" + virus.getName() + ".fasta");
+        String[] fastaLines = VirusFastaParser.toFastaLines(virus);
+        try (FileWriter fw = new FileWriter(toDirectory)) {
+            BufferedWriter bw = new BufferedWriter(fw);
+            PrintWriter out = new PrintWriter(bw);
+
+            out.println(fastaLines[0]);
+            out.println(fastaLines[1]);
+        }
+    }
+
+
+    /**
+     * Carga el catalogo de virus persistidos en el servidor.
+     * Lee todos los archivos .fasta del directorio de virus y los parsea a instancias de Virus.
+     * Si un archivo no es valido, se omite y se continua con los demas.
+     */
+    public synchronized List<Virus> catalog(){
         List<Virus> catalog = new ArrayList<>();
         File directory = new File(virusDirectory.toUri());
 
