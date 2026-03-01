@@ -19,7 +19,7 @@ import java.util.List;
  * @since 20260222
  * @version 1.0
  */
-public class VirusRepository {
+public class VirusRepository implements IVirusRepository {
 
     /**
      * Ruta del directorio de virus
@@ -70,6 +70,7 @@ public class VirusRepository {
     /**
      * Metodo que lee un archivo fasta desde una ruta local, lo copia al repositorio y retorna el virus parseado
      */
+    @Override
     public synchronized Virus saveVirusFromPath(String filepath) throws IOException, InvalidFastaFormatException{
         File file = new File(filepath);
         if(!file.exists()){
@@ -90,6 +91,7 @@ public class VirusRepository {
     /**
      * Metodo que guarda un Virus en el directorio de virus como archivo fasta
      */
+    @Override
     public synchronized void saveVirus(Virus virus) throws IOException {
         File toDirectory = new File(virusDirectory + "/" + virus.getName() + ".fasta");
         String[] fastaLines = VirusFastaParser.toFastaLines(virus);
@@ -108,6 +110,7 @@ public class VirusRepository {
      * Lee todos los archivos .fasta del directorio de virus y los parsea a instancias de Virus.
      * Si un archivo no es valido, se omite y se continua con los demas.
      */
+    @Override
     public synchronized List<Virus> catalog(){
         List<Virus> catalog = new ArrayList<>();
         File directory = new File(virusDirectory.toUri());

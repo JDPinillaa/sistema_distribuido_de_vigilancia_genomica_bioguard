@@ -14,9 +14,9 @@ import java.nio.file.Paths;
  *
  * @author Juan Diego
  * @since 20260222
- * @version 1.0
+ * @version 1.1
  */
-public class PatientRepository {
+public class PatientRepository implements IPatientRepository {
 
     /**
      * Ruta del directorio de los datos guardados en el servidor
@@ -59,6 +59,7 @@ public class PatientRepository {
     /**
      * Busca un paciente por su identificacion en el archivo CSV y muestra su información
      */
+    @Override
     public synchronized Patient consultPatient(String id) {
         File file = new File(patientsFile.toUri());
         if(!file.exists()){
@@ -85,6 +86,7 @@ public class PatientRepository {
     /**
      * Verifica si existe un paciente con el id dado.
      */
+    @Override
     public synchronized boolean patientExists(String id){
         return consultPatient(id) != null;
     }
@@ -92,6 +94,7 @@ public class PatientRepository {
     /**
      * Guarda un paciente en el archivo CSV.
      */
+    @Override
     public synchronized void savePatient(Patient patient) throws DuplicatedPatientException, IOException {
         if (patientExists(patient.getId())) {
             throw new DuplicatedPatientException("El paciente ya esta registrado en el sistema");

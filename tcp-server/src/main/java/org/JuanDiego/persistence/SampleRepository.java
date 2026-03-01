@@ -14,8 +14,11 @@ import java.util.List;
 
 /**
  * Repositorio de persistencia para las muestras de ADN
+ *  @author Juan Diego
+ *  @since 20260222
+ *  @version 1.1
  */
-public class SampleRepository {
+public class SampleRepository implements ISampleRepository {
 
     /**
      * Ruta del directorio de muestras de ADN
@@ -42,6 +45,7 @@ public class SampleRepository {
     /**
      * Metodo que guarda la muestra de un paciente en su carpeta
      */
+    @Override
     public synchronized void saveSample(DNASample sample) throws IOException{
         String patientId = sample.getPatientId();
         File patientFolder = new File(sampleDirectory+"/"+patientId);
@@ -66,6 +70,7 @@ public class SampleRepository {
     /**
      * Lee un archivo fasta desde una ruta local, lo parsea y lo guarda en el repositorio
      */
+    @Override
     public synchronized DNASample saveSampleFromPath(String filepath) throws IOException, InvalidFastaFormatException{
         File file = new File(filepath);
         if(!file.exists()){
@@ -86,6 +91,7 @@ public class SampleRepository {
     /**
      * Obtiene el historial de muestras de un paciente
      */
+    @Override
     public synchronized List<DNASample> obtainHistory(String id) throws IOException {
         List<DNASample> history = new ArrayList<>();
         File patientFolder = new File(sampleDirectory+"/"+id);
