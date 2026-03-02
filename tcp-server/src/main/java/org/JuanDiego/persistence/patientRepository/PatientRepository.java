@@ -1,4 +1,4 @@
-package org.JuanDiego.persistence;
+package org.JuanDiego.persistence.patientRepository;
 
 import org.JuanDiego.exceptions.DuplicatedPatientException;
 import org.JuanDiego.models.Patient;

@@ -1,6 +1,5 @@
-package org.JuanDiego.persistence;
+package org.JuanDiego.persistence.virusRepository;
 
-import org.JuanDiego.exceptions.InvalidFastaFormatException;
 import org.JuanDiego.models.Virus;
 
 import java.io.IOException;
@@ -15,6 +14,5 @@ import java.util.List;
  */
 public interface IVirusRepository {
     void saveVirus(Virus virus) throws IOException;
-    Virus saveVirusFromPath(String filepath) throws IOException, InvalidFastaFormatException;
     List<Virus> catalog();
 }

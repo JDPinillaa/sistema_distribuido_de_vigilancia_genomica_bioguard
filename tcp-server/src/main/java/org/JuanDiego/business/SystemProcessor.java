@@ -3,9 +3,9 @@ package org.JuanDiego.business;
 import org.JuanDiego.business.commands.CommandHandlerFactory;
 import org.JuanDiego.business.commands.ICommandHandler;
 import org.JuanDiego.business.commands.ICommandHandlerFactory;
-import org.JuanDiego.persistence.IPatientRepository;
-import org.JuanDiego.persistence.ISampleRepository;
-import org.JuanDiego.persistence.IVirusRepository;
+import org.JuanDiego.persistence.patientRepository.IPatientRepository;
+import org.JuanDiego.persistence.sampleRepository.ISampleRepository;
+import org.JuanDiego.persistence.virusRepository.IVirusRepository;
 
 /**
  * Esta clase procesa los mensajes entrantes del cliente

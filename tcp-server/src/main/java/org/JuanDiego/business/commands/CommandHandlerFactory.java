@@ -2,9 +2,9 @@ package org.JuanDiego.business.commands;
 
 import org.JuanDiego.business.DNAAnalizer;
 import org.JuanDiego.business.ReportGenerator;
-import org.JuanDiego.persistence.IPatientRepository;
-import org.JuanDiego.persistence.ISampleRepository;
-import org.JuanDiego.persistence.IVirusRepository;
+import org.JuanDiego.persistence.patientRepository.IPatientRepository;
+import org.JuanDiego.persistence.sampleRepository.ISampleRepository;
+import org.JuanDiego.persistence.virusRepository.IVirusRepository;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,7 +24,6 @@ public class CommandHandlerFactory implements ICommandHandlerFactory {
         handlers.put("REGISTERPATIENT", new RegisterPatientHandler(patientRepository));
         handlers.put("CONSULTPATIENT", new ConsultPatientHandler(patientRepository));
         handlers.put("LOADVIRUS", new LoadVirusHandler(virusRepository));
-        handlers.put("LOADVIRUSFROMFASTA", new LoadVirusFromFastaHandler(virusRepository));
         handlers.put("SHOWVIRUSCATALOG", new ShowVirusCatalogHandler(virusRepository));
         handlers.put("LOADANDANALIZESAMPLE", new LoadAndAnalyzeSampleHandler(sampleRepository, virusRepository, dnaAnalizer, reportGenerator, patientRepository));
     }

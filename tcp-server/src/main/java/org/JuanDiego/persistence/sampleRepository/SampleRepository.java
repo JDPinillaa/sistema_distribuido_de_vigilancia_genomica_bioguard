@@ -1,10 +1,15 @@
-package org.JuanDiego.persistence;
+package org.JuanDiego.persistence.sampleRepository;
 
-import org.JuanDiego.exceptions.InvalidFastaFormatException;
 import org.JuanDiego.models.DNASample;
 import org.JuanDiego.parsers.SampleFastaParser;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -64,27 +69,6 @@ public class SampleRepository implements ISampleRepository {
             out.println(fastaLines[1]);
         }
     }
-
-    /**
-     * Lee un archivo fasta desde una ruta local, lo parsea y lo guarda en el repositorio
-     */
-    @Override
-    public synchronized DNASample saveSampleFromPath(String filepath) throws IOException, InvalidFastaFormatException{
-        File file = new File(filepath);
-        if(!file.exists()){
-            throw new FileNotFoundException("No se encontro el archivo en la ruta indicada");
-        }
-
-        try(BufferedReader br = new BufferedReader(new FileReader(file))){
-            String firstLine = br.readLine();
-            String scndLine = br.readLine();
-
-            DNASample sample = SampleFastaParser.parse(firstLine, scndLine);
-            saveSample(sample);
-            return sample;
-        }
-    }
-
 
     /**
      * Obtiene el historial de muestras de un paciente

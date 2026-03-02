@@ -37,6 +37,21 @@ public class SampleFastaParser {
     }
 
     /**
+     * Parsea el contenido completo de un archivo fasta y construye una DNASample
+     */
+    public static DNASample parse(String fastaContent) throws InvalidFastaFormatException {
+        if (fastaContent == null) {
+            throw new InvalidFastaFormatException("El contenido fasta es nulo");
+        }
+        String normalized = fastaContent.replace("\\n", "\n");
+        String[] lines = normalized.split("\\R", 3);
+        if (lines.length < 2) {
+            throw new InvalidFastaFormatException("El contenido fasta debe tener al menos 2 lineas");
+        }
+        return parse(lines[0], lines[1]);
+    }
+
+    /**
      * Genera las dos lineas en formato fasta a partir de una DNASample
      */
     public static String[] toFastaLines(DNASample sample) {

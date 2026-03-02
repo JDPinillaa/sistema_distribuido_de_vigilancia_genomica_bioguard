@@ -1,7 +1,8 @@
-package org.JuanDiego.business.commands;
+package org.JuanDiego.business.commands.consultPatient;
 
+import org.JuanDiego.business.commands.ICommandHandler;
 import org.JuanDiego.models.Patient;
-import org.JuanDiego.persistence.IPatientRepository;
+import org.JuanDiego.persistence.patientRepository.IPatientRepository;
 
 
 /**

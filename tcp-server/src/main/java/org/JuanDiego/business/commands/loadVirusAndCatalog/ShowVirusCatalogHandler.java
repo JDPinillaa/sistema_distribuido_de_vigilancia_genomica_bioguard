@@ -1,7 +1,8 @@
-package org.JuanDiego.business.commands;
+package org.JuanDiego.business.commands.loadVirusAndCatalog;
 
+import org.JuanDiego.business.commands.ICommandHandler;
 import org.JuanDiego.models.Virus;
-import org.JuanDiego.persistence.IVirusRepository;
+import org.JuanDiego.persistence.virusRepository.IVirusRepository;
 
 /**
  * Handler del comando SHOWVIRUSCATALOG, implementa ICommandHandler

@@ -1,4 +1,4 @@
-package org.JuanDiego.persistence;
+package org.JuanDiego.persistence.virusRepository;
 
 import org.JuanDiego.exceptions.InvalidFastaFormatException;
 import org.JuanDiego.models.Virus;
@@ -8,7 +8,6 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,46 +46,6 @@ public class VirusRepository implements IVirusRepository {
         }
     }
 
-
-    /**
-     * Metodo que lee un archivo fasta desde una ruta local
-     */
-    public synchronized void saveVirus(String filepath) throws IOException, InvalidFastaFormatException{
-        File file = new File(filepath);
-        if(!file.exists()){
-            throw new FileNotFoundException("No se encontro el archivo en la ruta indicada");
-        }
-
-        try(BufferedReader br = new BufferedReader(new FileReader(file))){
-            String firstLine = br.readLine();
-            String scndLine = br.readLine();
-
-            Virus v = VirusFastaParser.parse(firstLine, scndLine);
-            File toDirectory = new File(virusDirectory + "/" + v.getName() + ".fasta");
-            Files.copy(file.toPath(), toDirectory.toPath(), StandardCopyOption.REPLACE_EXISTING);
-        }
-    }
-
-    /**
-     * Metodo que lee un archivo fasta desde una ruta local, lo copia al repositorio y retorna el virus parseado
-     */
-    @Override
-    public synchronized Virus saveVirusFromPath(String filepath) throws IOException, InvalidFastaFormatException{
-        File file = new File(filepath);
-        if(!file.exists()){
-            throw new FileNotFoundException("No se encontro el archivo en la ruta indicada");
-        }
-
-        try(BufferedReader br = new BufferedReader(new FileReader(file))){
-            String firstLine = br.readLine();
-            String scndLine = br.readLine();
-
-            Virus v = VirusFastaParser.parse(firstLine, scndLine);
-            File toDirectory = new File(virusDirectory + "/" + v.getName() + ".fasta");
-            Files.copy(file.toPath(), toDirectory.toPath(), StandardCopyOption.REPLACE_EXISTING);
-            return v;
-        }
-    }
 
     /**
      * Metodo que guarda un Virus en el directorio de virus como archivo fasta

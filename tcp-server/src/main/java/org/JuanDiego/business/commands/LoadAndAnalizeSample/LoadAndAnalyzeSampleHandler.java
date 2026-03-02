@@ -6,9 +6,10 @@ import org.JuanDiego.models.DNASample;
 import org.JuanDiego.models.Diagnostic;
 import org.JuanDiego.models.Patient;
 import org.JuanDiego.models.Virus;
-import org.JuanDiego.persistence.IPatientRepository;
-import org.JuanDiego.persistence.ISampleRepository;
-import org.JuanDiego.persistence.IVirusRepository;
+import org.JuanDiego.parsers.SampleFastaParser;
+import org.JuanDiego.persistence.patientRepository.IPatientRepository;
+import org.JuanDiego.persistence.sampleRepository.ISampleRepository;
+import org.JuanDiego.persistence.virusRepository.IVirusRepository;
 
 import java.util.List;
 
@@ -42,10 +43,11 @@ public class LoadAndAnalyzeSampleHandler implements ICommandHandler {
     @Override
     public String handle(String payload) {
         if (payload == null || payload.isEmpty()) {
-            return "Debe enviar la ruta del archivo fasta de la muestra";
+            return "Debe enviar el contenido fasta de la muestra";
         }
         try {
-            DNASample sample = sampleRepository.saveSampleFromPath(payload);
+            DNASample sample = SampleFastaParser.parse(payload);
+            sampleRepository.saveSample(sample);
             List<Virus> virusList = virusRepository.catalog();
             if (virusList.isEmpty()) {
                 return "No hay virus registrados en el catalogo";

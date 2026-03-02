@@ -4,6 +4,9 @@ import org.JuanDiego.common.PropertiesManager;
 import org.JuanDiego.network.SSLTCPClient;
 import org.JuanDiego.network.TCPConfig;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Scanner;
 
 
@@ -28,9 +31,10 @@ public class Main {
                     case "1" -> handleRegisterPatient(scanner, client);
                     case "2" -> handleConsultPatient(scanner, client);
                     case "3" -> handleLoadVirus(scanner, client);
-                    case "4" -> handleLoadVirusFromPath(scanner, client);
+                    case "4" -> handleLoadVirusFromFile(scanner, client);
                     case "5" -> send(client, "SHOWVIRUSCATALOG", "");
                     case "6" -> handleAnalyzeSample(scanner, client);
+                    case "7" -> handleAnalyzeSampleFromFile(scanner, client);
                     case "0" -> {
                         System.out.println("Saliendo del cliente.");
                         return;
@@ -58,11 +62,15 @@ public class Main {
                 
                 1. Registrar paciente
                 2. Consultar paciente
-                3. Cargar virus manualmente, poniendo los virus en el formato:
-                (>nombreVirus | nivelInfeccciosidad)
-                4. Cargar virus desde un archivo fasta
+                3. Cargar virus manualmente, en formato FASTA:
+                >nombreVirus|nivelInfeccciosidad
+                SECUENCIA
+                4. Cargar virus desde archivo FASTA (ruta local del cliente)
                 5. Mostrar el catalogo de los virus que usa este sistema
-                6. Cargar y analizar una muestra (.fasta)
+                6. Cargar y analizar una muestra manualmente (formato FASTA):
+                >documento|fecha
+                SECUENCIA
+                7. Cargar y analizar una muestra desde archivo FASTA (ruta local del cliente)
                 0. Salir
                 
                 
@@ -99,21 +107,39 @@ public class Main {
     }
 
     /**
-     *Maneja el caso de que el cliente quiera ingresar un virus adjuntando un fasta
-     */
-    private static void handleLoadVirusFromPath(Scanner scanner, SSLTCPClient client) {
-        System.out.print("Ingrese la ruta del archivo FASTA: ");
-        String path = scanner.nextLine().trim();
-        send(client, "LOADVIRUSFROMFASTA", path);
-    }
-
-    /**
      * aneja el caso de que el cliente quiera cargar una muestra
      */
     private static void handleAnalyzeSample(Scanner scanner, SSLTCPClient client) {
+        String fasta = readMultiline(scanner, "Pegue el contenido FASTA de la muestra y termine con una linea END:");
+        send(client, "LOADANDANALIZESAMPLE", fasta);
+    }
+
+    /**
+     * Maneja el caso de que el cliente quiera cargar un virus desde un archivo local
+     */
+    private static void handleLoadVirusFromFile(Scanner scanner, SSLTCPClient client) {
+        System.out.print("Ingrese la ruta del archivo FASTA del virus: ");
+        String path = scanner.nextLine().trim();
+        String content = readFileContent(path);
+        if (content == null || content.isBlank()) {
+            System.out.println("No se pudo leer el archivo o esta vacio.");
+            return;
+        }
+        send(client, "LOADVIRUS", content);
+    }
+
+    /**
+     * Maneja el caso de que el cliente quiera cargar una muestra desde un archivo local
+     */
+    private static void handleAnalyzeSampleFromFile(Scanner scanner, SSLTCPClient client) {
         System.out.print("Ingrese la ruta del archivo FASTA de la muestra: ");
         String path = scanner.nextLine().trim();
-        send(client, "LOADANDANALIZESAMPLE", path);
+        String content = readFileContent(path);
+        if (content == null || content.isBlank()) {
+            System.out.println("No se pudo leer el archivo o esta vacio.");
+            return;
+        }
+        send(client, "LOADANDANALIZESAMPLE", content);
     }
 
     /**
@@ -143,5 +169,13 @@ public class Main {
             sb.append(line);
         }
         return sb.toString();
+    }
+
+    private static String readFileContent(String path) {
+        try {
+            return Files.readString(Path.of(path));
+        } catch (IOException e) {
+            return null;
+        }
     }
 }

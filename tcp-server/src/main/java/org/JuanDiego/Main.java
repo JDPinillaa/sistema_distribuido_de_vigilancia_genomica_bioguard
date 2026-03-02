@@ -6,9 +6,9 @@ import org.JuanDiego.business.SystemProcessor;
 import org.JuanDiego.common.PropertiesManager;
 import org.JuanDiego.network.SSLTCPServer;
 import org.JuanDiego.network.TCPConfig;
-import org.JuanDiego.persistence.PatientRepository;
-import org.JuanDiego.persistence.SampleRepository;
-import org.JuanDiego.persistence.VirusRepository;
+import org.JuanDiego.persistence.patientRepository.PatientRepository;
+import org.JuanDiego.persistence.sampleRepository.SampleRepository;
+import org.JuanDiego.persistence.virusRepository.VirusRepository;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.

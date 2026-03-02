@@ -1,8 +1,9 @@
-package org.JuanDiego.business.commands;
+package org.JuanDiego.business.commands.registerPatient;
 
+import org.JuanDiego.business.commands.ICommandHandler;
 import org.JuanDiego.models.Patient;
 import org.JuanDiego.parsers.PatientCsvParser;
-import org.JuanDiego.persistence.IPatientRepository;
+import org.JuanDiego.persistence.patientRepository.IPatientRepository;
 
 /**
  * Handler del comando LOADANDANALIZESAMPLE, implementa ICommandHandler
