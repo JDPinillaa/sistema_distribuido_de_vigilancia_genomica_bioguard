@@ -58,10 +58,8 @@ public class SampleRepository implements ISampleRepository {
         File toPatientFolder = new File(patientFolder, fileName);
 
         String[] fastaLines = SampleFastaParser.toFastaLines(sample);
-        try(FileWriter fw = new FileWriter(toPatientFolder)){
-            BufferedWriter bw = new BufferedWriter(fw);
-            PrintWriter out = new PrintWriter(bw);
-
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(toPatientFolder));
+             PrintWriter out = new PrintWriter(bw)) {
             out.println(fastaLines[0]);
             out.println(fastaLines[1]);
         }

@@ -95,10 +95,8 @@ public class VirusRepository implements IVirusRepository {
     public synchronized void saveVirus(Virus virus) throws IOException {
         File toDirectory = new File(virusDirectory + "/" + virus.getName() + ".fasta");
         String[] fastaLines = VirusFastaParser.toFastaLines(virus);
-        try (FileWriter fw = new FileWriter(toDirectory)) {
-            BufferedWriter bw = new BufferedWriter(fw);
-            PrintWriter out = new PrintWriter(bw);
-
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(toDirectory));
+             PrintWriter out = new PrintWriter(bw)) {
             out.println(fastaLines[0]);
             out.println(fastaLines[1]);
         }
