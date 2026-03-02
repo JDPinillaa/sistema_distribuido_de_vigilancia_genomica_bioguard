@@ -1,7 +1,8 @@
-package org.JuanDiego.business.commands;
+package org.JuanDiego.business.commands.LoadAndAnalizeSample;
 
 import org.JuanDiego.business.DNAAnalizer;
 import org.JuanDiego.business.ReportGenerator;
+import org.JuanDiego.business.commands.ICommandHandler;
 import org.JuanDiego.models.DNASample;
 import org.JuanDiego.models.Diagnostic;
 import org.JuanDiego.models.Patient;

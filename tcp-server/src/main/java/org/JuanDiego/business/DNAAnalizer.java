@@ -27,7 +27,9 @@ public class DNAAnalizer {
 
             while(i >= 0){
                 int lastPosition = i + virusSequence.length() - 1;
-                results.add(new Diagnostic(virus, i, lastPosition));
+                int startPosition = i + 1;
+                int endPosition = lastPosition + 1;
+                results.add(new Diagnostic(virus, startPosition, endPosition));
                 i = pacientSequence.indexOf(virusSequence, i+1);
             }
         }
