@@ -2,6 +2,10 @@ package org.JuanDiego.business.commands;
 
 import org.JuanDiego.business.DNAAnalizer;
 import org.JuanDiego.business.ReportGenerator;
+import org.JuanDiego.business.commands.consultPatient.ConsultPatientHandler;
+import org.JuanDiego.business.commands.loadVirusAndCatalog.LoadVirusHandler;
+import org.JuanDiego.business.commands.loadVirusAndCatalog.ShowVirusCatalogHandler;
+import org.JuanDiego.business.commands.registerPatient.RegisterPatientHandler;
 import org.JuanDiego.persistence.patientRepository.IPatientRepository;
 import org.JuanDiego.persistence.sampleRepository.ISampleRepository;
 import org.JuanDiego.persistence.virusRepository.IVirusRepository;
@@ -25,7 +29,7 @@ public class CommandHandlerFactory implements ICommandHandlerFactory {
         handlers.put("CONSULTPATIENT", new ConsultPatientHandler(patientRepository));
         handlers.put("LOADVIRUS", new LoadVirusHandler(virusRepository));
         handlers.put("SHOWVIRUSCATALOG", new ShowVirusCatalogHandler(virusRepository));
-        handlers.put("LOADANDANALIZESAMPLE", new LoadAndAnalyzeSampleHandler(sampleRepository, virusRepository, dnaAnalizer, reportGenerator, patientRepository));
+        handlers.put("LOADANDANALIZESAMPLE", new org.JuanDiego.business.commands.LoadAndAnalyzeSampleHandler(sampleRepository, virusRepository, dnaAnalizer, reportGenerator, patientRepository));
     }
 
     /**

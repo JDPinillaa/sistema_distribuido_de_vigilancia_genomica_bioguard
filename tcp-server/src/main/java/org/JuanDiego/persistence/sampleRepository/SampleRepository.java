@@ -1,5 +1,6 @@
 package org.JuanDiego.persistence.sampleRepository;
 
+import org.JuanDiego.exceptions.InvalidFastaFormatException;
 import org.JuanDiego.models.DNASample;
 import org.JuanDiego.parsers.SampleFastaParser;
 
